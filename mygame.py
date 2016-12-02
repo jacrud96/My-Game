@@ -251,6 +251,7 @@ while True:
 sprites.draw(screen)
 
 print ('done')
+print ('done')
 print (player.score)
 if player.score > 10:
 	print("won")
