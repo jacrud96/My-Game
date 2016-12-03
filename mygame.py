@@ -105,9 +105,6 @@ class GreenPiece(pygame.sprite.Sprite):   #This class is for the green pieces
 
     		
 
-		
-
-
 
 class RedPiece(pygame.sprite.Sprite): #Do i need to make it Pygame.sprite.Sprite ?
 	def __init__(self):
@@ -117,7 +114,7 @@ class RedPiece(pygame.sprite.Sprite): #Do i need to make it Pygame.sprite.Sprite
 		self.rect = self.image.get_rect()
 		self.rect.center = (350, 0)
 
-		self.velocity = randint(3, 5)
+		self.velocity = randint(3, 5)      #velocity of moving red pieces random int between 3 and 5 so they change but stay similar speeds
 		
 
 
@@ -159,10 +156,10 @@ display.set_caption('Get to 10!')
 
 f = pygame.font.Font(None, 25)
 
-greenObj = GreenPiece(everything)
+greenObj = GreenPiece(everything)      #to make three occurences of green pieces
 greenObj1 = GreenPiece(everything)
 greenObj2 = GreenPiece(everything)
-redObj = RedPiece()
+redObj = RedPiece()       #to make three occurences of red pieces
 redObj1 = RedPiece()
 redObj2 = RedPiece()
 player = Player()
@@ -215,13 +212,12 @@ while True:
 	t = f.render("Score = " + str(player.score), False, (255,255,255))
 	screen.blit(t, (320, 0))    
 
-     #+ (int(player.score))  #hits
-      # draw text to screen.  Can you move it?
+
 
     # update and redraw sprites
 	sprites.update()
 	sprites.draw(screen)
-	display.update()
+	display.update()    #these lines update everything
 	everything.update()
 
 sprites.draw(screen)
@@ -229,13 +225,13 @@ sprites.draw(screen)
 print ('done')
 print ('done')
 print (player.score)
-if player.score > 10:
+if player.score > 10:    #when you get to ten you win 
 	print("won")
 	font = pygame.font.Font(None, 36)
 	text = font.render("You Won", False, (255,255,255))    
 	textpos = text.get_rect()
-	screen.blit(text,(350, 250))
-if player.score < -10:
+	screen.blit(text,(350, 250))  #this put the text on the screen 
+if player.score < -10: #when you get to negative ten you lose
 	print("loss")
 	font = pygame.font.Font(None, 36)
 	text = font.render("Game Over", False, (255, 255, 255))
@@ -248,4 +244,4 @@ display.update()
 # everything.update()
 pygame.time.delay(2000)
 pygame.quit()
-
+#ends the game when you win or lose . exit wasnt working but this is specific to pygame
