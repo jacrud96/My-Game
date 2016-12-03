@@ -1,6 +1,3 @@
-#My idea is to do a similar thing to the demo---where there is "things" falling down that are either red which kill you (after 3) or green which u have to get to increase score
-
-
 
 import pygame
 import math
@@ -11,44 +8,42 @@ from pygame.sprite import *
 from random import *
 
 
-#create colors MAKE MY OWN!!!
-white = (255,255,255)
-black = (0,0,0)
-red = (255, 0, 0)
-green = (0, 255, 0)
-blue = (0, 0, 255)
-yellow = (225, 225, 0)
+color_white = (255,255,255)
+color_black = (0,0,0)
+color_red = (255, 0, 0)
+color_green = (0, 255, 0)
+color_blue = (0, 0, 255)
+color_yellow = (225, 225, 0)
 
 pygame.init()
-screen = display.set_mode((700,500)) #creates a window 
-pygame.display.set_caption("Jaclyn Rudolf's Game")
+screen = display.set_mode((700,500)) #Creates a window of this size  
+pygame.display.set_caption("Jaclyn Rudolf's Game") #Caption of the game
 
-background_image = image.load("space3.bmp")
+background_image = image.load("space3.bmp") #Adds the background image of space
 
 
 
 DELAY = 1000;  
 
-class Player (pygame.sprite.Sprite):
+class Player (pygame.sprite.Sprite):   #class to create the Player at the bottom of the screen, inheritance from Sprite
 	def __init__(self):
 		Sprite.__init__(self)
-		self.image = pygame.Surface([40, 20])
-		self.image.fill(white)
-		#self.rect = self.image.get_rect().move(300,460)
+		self.image = pygame.Surface([40, 20])    
+		self.image.fill(color_white) #the players color
 		self.rect = self.image.get_rect()
 		self.rect.center = (300, 460)
-		self.speed = 10
-		self.state = "still"
+		self.speed = 10  #the speed of the player back and forth from left to right
+		self.state = "still"   
 		self.reinit()
 		self.area = screen.get_rect()
-		self.score = 0
+		self.score = 0    #initializes score to zero
 
 	def reinit(self):
 		self.state = 'still'
 		self.movepos = [300,480]
 
 	def update(self):
-		newposition = self.rect.move(self.movepos)
+		newposition = self.rect.move(self.movepos)    
 		if self.area.contains(newposition):
 			self.rect = newposition
 		pygame.event.pump()
@@ -64,31 +59,15 @@ class Player (pygame.sprite.Sprite):
 
 	def score_create():
 		f = font.Font(None, 25)
-		t = f.render("Score = " + str(player.score), False, (255,255,255))
+		t = f.render("Score = " + str(player.score), False, (255,255,255)) #creates score (in white)
 
 	def update_score(self):
 		pygame.font.init()
-		if self.rect.colliderect(redObj.rect):
+		if self.rect.colliderect(redObj.rect):    #updates score when it collides with red objects (decreases) v green (increases)
 			self.score = self.score - 1
 		if self.rect.colliderect(greenObj.rect):
 			self.score = self.score + 1
-		# if self.score == 10:
-		# 	font = pygame.font.Font(None, 36)
-		# 	text = font.render("You Won", False, (255,255,255))    
-		# 	textpos = text.get_rect()
-		# 	screen.blit(text,(350, 250))
-		# 	pygame.time.delay(3000)
-		# if self.score == -10:
-		# 	font = pygame.font.Font(None, 36)
-		# 	text = font.render("Game Over", False, (255, 255, 255))
-		# 	textpos = text.get_rect()
-		# 	screen.blit(text,(350, 250))
-		# 	pygame.time.delay(3000)
-
-  #   def score_create():
-		# f = font.Font(None, 25)
-		# t = f.render("Score = " + str(player.score), False, (0,0,0))
-
+		
 
   
 class Points (pygame.sprite.Sprite):
@@ -96,23 +75,20 @@ class Points (pygame.sprite.Sprite):
 		self.image= pygame.Surface
 
 
-class GreenPiece(pygame.sprite.Sprite):
+class GreenPiece(pygame.sprite.Sprite):   #This class is for the green pieces
 	def __init__(self, groups):
 		Sprite.__init__(self)
 		self.image = pygame.Surface([20, 20])
-		self.image.fill(green)
+		self.image.fill(color_green)
 		self.rect = self.image.get_rect()
 		self.rect.center = (350, 0)
 
-		self.velocity = randint(3, 5)
-		self.add(groups)
+		self.velocity = randint(3, 5)   #sets the velocity of the green pieces falling randomly between 3 and 5 
+		self.add(groups)     #more than one
        
-
-    # move gold to a new random location
 	def move(self):
 		cent_x = self.rect.centerx
 		cent_y = self.rect.centery
-		# current_rect = self.image.get_rect()
 		randX = randint(cent_x-10, cent_x+10)
 		randY = randint(cent_y, cent_y+10)
 		self.rect.center = (randX,randY)
@@ -137,7 +113,7 @@ class RedPiece(pygame.sprite.Sprite): #Do i need to make it Pygame.sprite.Sprite
 	def __init__(self):
 		Sprite.__init__(self)
 		self.image = pygame.Surface([20, 20])
-		self.image.fill(red)
+		self.image.fill(color_red)
 		self.rect = self.image.get_rect()
 		self.rect.center = (350, 0)
 
